@@ -5,7 +5,6 @@ first.
 """
 
 import time
-import inspect
 
 def parametrized_cache(timeout: int = 300, calls: int = 10) -> callable:
     def decorator(func: callable) -> callable:
@@ -16,7 +15,7 @@ def parametrized_cache(timeout: int = 300, calls: int = 10) -> callable:
             if args in cache:
                 if time.time() - cache[args]["time"] > timeout:
                     # TIMEOUT
-                    print("TIMEOUT")
+                    # print("TIMEOUT")
                     cache[args] = {
                         "result": func(*args),
                         "time": curr_time,
@@ -24,7 +23,7 @@ def parametrized_cache(timeout: int = 300, calls: int = 10) -> callable:
                     }
                 elif cache[args]["num_of_calls"] == calls:
                     # MAX NUMBER OF CALLS
-                    print("MAX NUMBER OF CALLS")
+                    # print("MAX NUMBER OF CALLS")
                     cache[args] = {
                         "result": func(*args),
                         "time": curr_time,
@@ -32,12 +31,11 @@ def parametrized_cache(timeout: int = 300, calls: int = 10) -> callable:
                     }
                 else:
                     # RETURN CACHED RESULT
-                    print("CACHED")
+                    # print("CACHED")
                     cache[args]["num_of_calls"] += 1
             else:
                 # INITIAL CALL AND CACHING
-                print("INITIAL CALL")
-                
+                # print("INITIAL CALL")
                 cache[args] = {
                     "result": func(*args),
                     "time": curr_time,
